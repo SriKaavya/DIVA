@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    Chicago
+</head>
+<body>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<a href="{{ url_for('dumbell_plot') }}">Dumbell</a><br>
+<a href="{{ url_for('bar_race') }}">Bar plot</a><br>
+<a href="{{ url_for('pie_of_pie') }}">pie-of-pie</a><br>
+
+
+<div id="dumbell" height="50px" width="100px"></div>
+
+<script type="text/javascript" src="{{url_for('static', filename='js/dumbell.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/raceplot.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/pie-of-pie.js')}}"></script>
+
+
+
+</body>
+</html>

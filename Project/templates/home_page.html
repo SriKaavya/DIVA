@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<font color="#000099">    <title>Chicago City's Crime Data analysis</title>  </font>
+</head>
+<body background="Diva_bg.jpg">
+<!--<h1>Chicago City's Crime Data analysis</h1>-->
+<div>
+<div class="container">
+    <h2 class="h2 text-center mb-3">Chicago City's Crime Data analysis</h2>
+    <div class="row justify-content-md-center">
+
+
+        <div class="input-group col-md-6 justify-content-md-center col-md-auto">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+		    <input type="radio" id="Year-wise View" aria-label="Year-wise View" onclick="window.location='/Year';">Year-wise View</input> 
+                </div>
+            </div>
+           <!-- <input type="text" class="form-control" aria-label="Year-wise View">-->
+        </div>
+        <div class="input-group col-md-6 justify-content-md-center col-md-auto">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" id="Plots" aria-label="Plots" onclick="window.location='/Plots';"> Plots </input> 
+                </div>
+            </div>
+           <!-- <input type="text" class="form-control" aria-label="Plots">-->
+        </div>
+
+    </div></div>
+    <br/>
+<a href="http://127.0.0.1:5000/Years" onclick='myFunction()' id="Year-wise View"></a>
+<a href="http://127.0.0.1:5000/Plots" onclick='myFunction()' id="Plots"></a>
+
+<div>
+    <br/>
+    <div class="container bg-light" style=".bg-info">
+        <div class="row ">
+            <div class="col-md-auto">
+            </div>
+        </div>
+    <br/>
+<font color="#4d94ff"> <h2><center>About Dataset</center> </h2> </font>
+	<div class="container bg-light">
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+             <th class="text-center" >No. of rows</th>
+	     <th class="text-center" >No. of columns</th>
+	     <th class="text-center" >Each row represents</th>
+            </thead>
+            <tbody>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">7.08 Millions</td>
+                 <td class="pt-3-half" contenteditable="true">22</td>
+                 <td class="pt-3-half" contenteditable="true">A reported crime</td>
+             </tr>
+             </tbody>
+        </table>
+
+
+
+<font color="#4d94ff"> <h2><center>Columns in this Dataset</center> </h2> </font>
+
+    <div class="container bg-light">
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+             <th class="text-center" >Columns name</th>
+	     <th class="text-center" >Description</th>
+	     <th class="text-center" >Data Type</th>
+            </thead>
+             <tbody>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">ID</td>
+                 <td class="pt-3-half" contenteditable="true">Unique identifier for the record</td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Case Number</td>
+                 <td class="pt-3-half" contenteditable="true">The Chicago Police Department RD Number (Records Division Number), which is unique to the incident</td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Date</td>
+                 <td class="pt-3-half" contenteditable="true">Date when the incident occurred. this is sometimes a best estimate</td>
+                 <td class="pt-3-half" contenteditable="true">Date</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Block</td>
+                 <td class="pt-3-half" contenteditable="true">The partially redacted address where the incident occurred, placing it on the same block as the actual address</td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">IUCR</td>
+                 <td class="pt-3-half" contenteditable="true">	
+The Illinois Unifrom Crime Reporting code. This is directly linked to the Primary Type and Description. See the list of IUCR codes at https://data.cityofchicago.org/d/c7ck-438e </td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Primary Type</td>
+                 <td class="pt-3-half" contenteditable="true">The primary description of the IUCR code</td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Description</td>
+                 <td class="pt-3-half" contenteditable="true">The secondary description of the IUCR code, a subcategory of the primary description</td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Location Description</td>
+                 <td class="pt-3-half" contenteditable="true">Description of the location where the incident occurred</td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Arrest</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates whether an arrest was made</td>
+                 <td class="pt-3-half" contenteditable="true">Checkbox</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Domestic</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates whether the incident was domestic-related as defined by the Illinois Domestic Violence Act</td>
+                 <td class="pt-3-half" contenteditable="true">Checkbox</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Beat</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates the beat where the incident occurred. A beat is the smallest police geographic area – each beat has a dedicated police beat car. Three to five beats make up a police sector, and three sectors make up a police district. The Chicago Police Department has 22 police districts. See the beats at https://data.cityofchicago.org/d/aerh-rz74 </td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">District</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates the police district where the incident occurred. See the districts at https://data.cityofchicago.org/d/fthy-xz3r </td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Ward</td>
+                 <td class="pt-3-half" contenteditable="true">The ward (City Council district) where the incident occurred. See the wards at https://data.cityofchicago.org/d/sp34-6z76 </td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Community Area</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates the community area where the incident occurred. Chicago has 77 community areas. See the community areas at https://data.cityofchicago.org/d/cauq-8yn6 </td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">FBI Code</td>
+                 <td class="pt-3-half" contenteditable="true">Indicates the crime classification as outlined in the FBI's National Incident-Based Reporting System (NIBRS). See the Chicago Police Department listing of these classifications at http://gis.chicagopolice.org/clearmap_crime_sums/crime_types.html </td>
+                 <td class="pt-3-half" contenteditable="true">Text</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">X Coordinate</td>
+                 <td class="pt-3-half" contenteditable="true">The x coordinate of the location where the incident occurred in State Plane Illinois East NAD 1983 projection. This location is shifted from the actual location for partial redaction but falls on the same block </td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Y Coordinate</td>
+                 <td class="pt-3-half" contenteditable="true">The y coordinate of the location where the incident occurred in State Plane Illinois East NAD 1983 projection. This location is shifted from the actual location for partial redaction but falls on the same block </td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Year</td>
+                 <td class="pt-3-half" contenteditable="true">Year the incident occurred</td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Updated On</td>
+                 <td class="pt-3-half" contenteditable="true">Date and time the record was last updated </td>
+                 <td class="pt-3-half" contenteditable="true">Date</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Latitude</td>
+                 <td class="pt-3-half" contenteditable="true">The latitude of the location where the incident occurred. This location is shifted from the actual location for partial redaction but falls on the same block </td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Longitude</td>
+                 <td class="pt-3-half" contenteditable="true">The longitude of the location where the incident occurred. This location is shifted from the actual location for partial redaction but falls on the same block </td>
+                 <td class="pt-3-half" contenteditable="true">Number</td>
+             </tr>
+             <tr>
+                 <td class="pt-3-half" contenteditable="true">Location</td>
+                 <td class="pt-3-half" contenteditable="true">The location where the incident occurred in a format that allows for creation of maps and other geographic operations on this data portal. This location is shifted from the actual location for partial redaction but falls on the same block </td>
+                 <td class="pt-3-half" contenteditable="true">Location</td>
+             </tr>
+             </tbody>
+        </table>
+
+    </div>
+</div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
