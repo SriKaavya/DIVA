@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="styles.css">
+    <head><title>Statistics</title></head>
+        <body style="background-color: beige"> 
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>  
+	<div id="chartdiv" height="800px" width="400px"></div>
+<style>
+#chartdiv {
+  width: 100%;
+  height: 600px;
+}
+
+</style> 
+
+	<br> <br> <br> <br> <br> <br>
+	<div id="chartdiv1"></div>
+	<script type="text/javascript" src="{{url_for('static', filename='js/raceplot.js')}}"></script>
+	
+        <script type="text/javascript" src="{{url_for('static', filename='js/pie-of-pie.js')}}"></script>
+    
+
+<!-- Styles -->
+<style>
+#chartdiv1 {
+  width: 100%;
+  height: 500px;
+}
+
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var container = am4core.create("chartdiv1", am4core.Container);
+container.width = am4core.percent(100);
+container.height = am4core.percent(100);
+container.layout = "horizontal";
+
+
+var chart = container.createChild(am4charts.PieChart);
+
+// Add data
+chart.data = [{'Crime': 'ASSAULT', 'Count': 102847, 'subData': [{'District': 3.0, 'value': 7318}, {'District': 5.0, 'value': 7080}, {'District': 6.0, 'value': 8131}, {'District': 7.0, 'value': 9106}, {'District': 8.0, 'value': 7137}, {'District': 11.0, 'value': 7353}, {'District': 25.0, 'value': 7073}]}, {'Crime': 'BATTERY', 'Count': 607497, 'subData': [{'District': 3.0, 'value': 48074}, {'District': 5.0, 'value': 36356}, {'District': 6.0, 'value': 44989}, {'District': 7.0, 'value': 56496}, {'District': 8.0, 'value': 40460}, {'District': 11.0, 'value': 45097}, {'District': 25.0, 'value': 40740}]}, {'Crime': 'BURGLARY', 'Count': 3049, 'subData': [{'District': 3.0, 'value': 272}, {'District': 4.0, 'value': 180}, {'District': 6.0, 'value': 261}, {'District': 7.0, 'value': 358}, {'District': 8.0, 'value': 257}, {'District': 11.0, 'value': 200}, {'District': 25.0, 'value': 205}]}, {'Crime': 'CRIM SEXUAL ASSAULT', 'Count': 3921, 'subData': [{'District': 3.0, 'value': 281}, {'District': 4.0, 'value': 246}, {'District': 6.0, 'value': 230}, {'District': 7.0, 'value': 294}, {'District': 8.0, 'value': 350}, {'District': 9.0, 'value': 256}, {'District': 25.0, 'value': 343}]}, {'Crime': 'CRIMINAL DAMAGE', 'Count': 67116, 'subData': [{'District': 3.0, 'value': 5684}, {'District': 5.0, 'value': 5631}, {'District': 6.0, 'value': 6162}, {'District': 7.0, 'value': 7812}, {'District': 8.0, 'value': 4424}, {'District': 11.0, 'value': 5608}, {'District': 15.0, 'value': 3966}]}, {'Crime': 'CRIMINAL TRESPASS', 'Count': 7169, 'subData': [{'District': 3.0, 'value': 467}, {'District': 5.0, 'value': 575}, {'District': 6.0, 'value': 691}, {'District': 7.0, 'value': 530}, {'District': 8.0, 'value': 530}, {'District': 22.0, 'value': 485}, {'District': 25.0, 'value': 497}]}, {'Crime': 'DECEPTIVE PRACTICE', 'Count': 3406, 'subData': [{'District': 3.0, 'value': 219}, {'District': 4.0, 'value': 210}, {'District': 5.0, 'value': 232}, {'District': 6.0, 'value': 319}, {'District': 7.0, 'value': 216}, {'District': 8.0, 'value': 299}, {'District': 22.0, 'value': 212}]}, {'Crime': 'KIDNAPPING', 'Count': 2015, 'subData': [{'District': 3.0, 'value': 130}, {'District': 4.0, 'value': 191}, {'District': 5.0, 'value': 161}, {'District': 6.0, 'value': 188}, {'District': 8.0, 'value': 125}, {'District': 22.0, 'value': 205}, {'District': 25.0, 'value': 133}]}, {'Crime': 'OFFENSE INVOLVING CHILDREN', 'Count': 27335, 'subData': [{'District': 3.0, 'value': 2060}, {'District': 4.0, 'value': 2375}, {'District': 5.0, 'value': 1867}, {'District': 6.0, 'value': 2168}, {'District': 8.0, 'value': 2302}, {'District': 22.0, 'value': 1600}, {'District': 25.0, 'value': 2072}]}, {'Crime': 'OTHER OFFENSE', 'Count': 143502, 'subData': [{'District': 3.0, 'value': 9571}, {'District': 4.0, 'value': 9089}, {'District': 5.0, 'value': 7686}, {'District': 6.0, 'value': 10110}, {'District': 7.0, 'value': 7876}, {'District': 8.0, 'value': 11585}, {'District': 25.0, 'value': 9483}]}, {'Crime': 'PUBLIC PEACE VIOLATION', 'Count': 2690, 'subData': [{'District': 3.0, 'value': 162}, {'District': 4.0, 'value': 175}, {'District': 5.0, 'value': 189}, {'District': 6.0, 'value': 194}, {'District': 7.0, 'value': 196}, {'District': 8.0, 'value': 186}, {'District': 25.0, 'value': 245}]}, {'Crime': 'ROBBERY', 'Count': 4865, 'subData': [{'District': 2.0, 'value': 314}, {'District': 3.0, 'value': 665}, {'District': 4.0, 'value': 347}, {'District': 5.0, 'value': 403}, {'District': 6.0, 'value': 721}, {'District': 7.0, 'value': 472}, {'District': 11.0, 'value': 409}]}, {'Crime': 'SEX OFFENSE', 'Count': 2213, 'subData': [{'District': 4.0, 'value': 133}, {'District': 6.0, 'value': 133}, {'District': 7.0, 'value': 174}, {'District': 8.0, 'value': 210}, {'District': 9.0, 'value': 144}, {'District': 10.0, 'value': 144}, {'District': 25.0, 'value': 218}]}, {'Crime': 'THEFT', 'Count': 36340, 'subData': [{'District': 2.0, 'value': 2277}, {'District': 3.0, 'value': 3157}, {'District': 5.0, 'value': 2395}, {'District': 6.0, 'value': 3270}, {'District': 7.0, 'value': 3572}, {'District': 8.0, 'value': 2375}, {'District': 11.0, 'value': 2657}]}];
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = 'Count';
+pieSeries.dataFields.category = 'Crime';
+pieSeries.slices.template.states.getKey("active").properties.shiftRadius = 0;
+//pieSeries.labels.template.text = "{category}\n{value.percent.formatNumber('#.#')}%";
+
+pieSeries.slices.template.events.on("hit", function(event) {
+  selectSlice(event.target.dataItem);
+})
+
+var chart2 = container.createChild(am4charts.PieChart);
+chart2.width = am4core.percent(30);
+chart2.radius = am4core.percent(80);
+
+// Add and configure Series
+var pieSeries2 = chart2.series.push(new am4charts.PieSeries());
+pieSeries2.dataFields.value = 'value';
+pieSeries2.dataFields.category = 'District';
+pieSeries2.slices.template.states.getKey("active").properties.shiftRadius = 0;
+//pieSeries2.labels.template.radius = am4core.percent(50);
+//pieSeries2.labels.template.inside = true;
+//pieSeries2.labels.template.fill = am4core.color("#ffffff");
+pieSeries2.labels.template.disabled = true;
+pieSeries2.ticks.template.disabled = true;
+pieSeries2.alignLabels = false;
+pieSeries2.events.on("positionchanged", updateLines);
+
+var interfaceColors = new am4core.InterfaceColorSet();
+
+var line1 = container.createChild(am4core.Line);
+line1.strokeDasharray = "2,2";
+line1.strokeOpacity = 0.5;
+line1.stroke = interfaceColors.getFor("alternativeBackground");
+line1.isMeasured = false;
+
+var line2 = container.createChild(am4core.Line);
+line2.strokeDasharray = "2,2";
+line2.strokeOpacity = 0.5;
+line2.stroke = interfaceColors.getFor("alternativeBackground");
+line2.isMeasured = false;
+
+var selectedSlice;
+
+function selectSlice(dataItem) {
+
+  selectedSlice = dataItem.slice;
+
+  var fill = selectedSlice.fill;
+
+  var count = dataItem.dataContext.subData.length;
+  pieSeries2.colors.list = [];
+  for (var i = 0; i < count; i++) {
+    pieSeries2.colors.list.push(fill.brighten(i * 2 / count));
+  }
+
+  chart2.data = dataItem.dataContext.subData;
+  pieSeries2.appear();
+
+  var middleAngle = selectedSlice.middleAngle;
+  var firstAngle = pieSeries.slices.getIndex(0).startAngle;
+  var animation = pieSeries.animate([{ property: "startAngle", to: firstAngle - middleAngle }, { property: "endAngle", to: firstAngle - middleAngle + 360 }], 600, am4core.ease.sinOut);
+  animation.events.on("animationprogress", updateLines);
+
+  selectedSlice.events.on("transformed", updateLines);
+
+//  var animation = chart2.animate({property:"dx", from:-container.pixelWidth / 2, to:0}, 2000, am4core.ease.elasticOut)
+//  animation.events.on("animationprogress", updateLines)
+}
+
+
+function updateLines() {
+  if (selectedSlice) {
+    var p11 = { x: selectedSlice.radius * am4core.math.cos(selectedSlice.startAngle), y: selectedSlice.radius * am4core.math.sin(selectedSlice.startAngle) };
+    var p12 = { x: selectedSlice.radius * am4core.math.cos(selectedSlice.startAngle + selectedSlice.arc), y: selectedSlice.radius * am4core.math.sin(selectedSlice.startAngle + selectedSlice.arc) };
+
+    p11 = am4core.utils.spritePointToSvg(p11, selectedSlice);
+    p12 = am4core.utils.spritePointToSvg(p12, selectedSlice);
+
+    var p21 = { x: 0, y: -pieSeries2.pixelRadius };
+    var p22 = { x: 0, y: pieSeries2.pixelRadius };
+
+    p21 = am4core.utils.spritePointToSvg(p21, pieSeries2);
+    p22 = am4core.utils.spritePointToSvg(p22, pieSeries2);
+
+    line1.x1 = p11.x;
+    line1.x2 = p21.x;
+    line1.y1 = p11.y;
+    line1.y2 = p21.y;
+
+    line2.x1 = p12.x;
+    line2.x2 = p22.x;
+    line2.y1 = p12.y;
+    line2.y2 = p22.y;
+  }
+}
+
+chart.events.on("datavalidated", function() {
+  setTimeout(function() {
+    selectSlice(pieSeries.dataItems.getIndex(0));
+  }, 1000);
+});
+
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv1"></div>
+
+</html>
