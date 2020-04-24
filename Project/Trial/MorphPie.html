@@ -1,0 +1,320 @@
+<html>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<div id="chartdiv"></div>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin:0;
+}
+#chartdiv {
+  width: 100%;
+  height: 98vh;  
+}
+</style>
+<body>
+<script>
+am4core.useTheme(am4themes_animated);
+
+var chart = am4core.create("chartdiv", am4maps.MapChart);
+chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+try {
+  chart.geodataSource.url = "https://raw.githubusercontent.com/SriKaavya/RandomTemp/master/PolygonDistChicagoGeoJSON.json";
+} catch (e) {
+  chart.raiseCriticalError({
+    message:
+      'Map geodata could not be loaded. Please download the latest <a href="https://raw.githubusercontent.com/SriKaavya/RandomTemp/master/PolygonDistChicagoGeoJSON.json">amcharts geodata</a> and extract its contents into the same directory as your amCharts files.'
+  });
+}
+var dist_dict={1:"Central", 2:"Wentworth", 3:"Grand Crossing", 4:"South Chicago", 5:"Calumet", 6:"Gresham", 7:"Eaglewood", 8:"Chicago Lawn", 9:"Deering", 10:"Ogden", 11:"Harrison", 12:"Near West", 14:"Shakespeare", 15:"Austin", 16:"Jefferson Park", 17:"Albany Park", 18:"Near North", 19:"Town Hall", 20:"Lincoln", 22:"Morgan Park", 24:"Rogers Park", 25:"Grand Central"};
+chart.projection = new am4maps.projections.Mercator();
+
+// zoomout on background click
+chart.chartContainer.background.events.on("hit", function() {
+  zoomOut();
+});
+
+var colorSet = new am4core.ColorSet();
+var morphedPolygon;
+
+// map polygon series (countries)
+var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+polygonSeries.useGeodata = true;
+// specify which countries to include
+polygonSeries.include = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"];
+
+// country area look and behavior
+var polygonTemplate = polygonSeries.mapPolygons.template;
+polygonTemplate.strokeOpacity = 1;
+polygonTemplate.stroke = am4core.color("#ffffff");
+polygonTemplate.fillOpacity = 0.5;
+polygonTemplate.tooltipText = "{name}";
+
+// desaturate filter for countries
+var desaturateFilter = new am4core.DesaturateFilter();
+desaturateFilter.saturation = 0.25;
+polygonTemplate.filters.push(desaturateFilter);
+
+// take a color from color set
+polygonTemplate.adapter.add("fill", function(fill, target) {
+  if(target.dataItem){
+    return colorSet.getIndex(target.dataItem.index + 1);
+  }
+});
+
+// set fillOpacity to 1 when hovered
+var hoverState = polygonTemplate.states.create("hover");
+hoverState.properties.fillOpacity = 1;
+
+// what to do when country is clicked
+polygonTemplate.events.on("hit", function(event) {
+  selectPolygon(event.target);
+  event.target.zIndex = 10000000;
+});
+
+// Pie chart
+var pieChart = chart.seriesContainer.createChild(am4charts.PieChart);
+// Set width/heigh of a pie chart for easier positioning only
+pieChart.width = 100;
+pieChart.height = 100;
+pieChart.hidden = true;
+
+var pieSeries = pieChart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.id = "id";
+pieSeries.dataFields.value = "name";
+pieSeries.dataFields.category = "category";
+pieSeries.data = chart.data = [{
+  "country": "Lithuania",
+  "litres": 500,
+  "subData": [{ name: "A", value: 200 }, { name: "B", value: 150 }, { name: "C", value: 100 }, { name: "D", value: 50 }]
+}, {
+  "country": "Czech Republic",
+  "litres": 300,
+  "subData": [{ name: "A", value: 150 }, { name: "B", value: 100 }, { name: "C", value: 50 }]
+}, {
+  "country": "Ireland",
+  "litres": 200,
+  "subData": [{ name: "A", value: 110 }, { name: "B", value: 60 }, { name: "C", value: 30 }]
+}, {
+  "country": "Germany",
+  "litres": 150,
+  "subData": [{ name: "A", value: 80 }, { name: "B", value: 40 }, { name: "C", value: 30 }]
+}, {
+  "country": "Australia",
+  "litres": 140,
+  "subData": [{ name: "A", value: 90 }, { name: "B", value: 40 }, { name: "C", value: 10 }]
+}, {
+  "country": "Austria",
+  "litres": 120,
+  "subData": [{ name: "A", value: 60 }, { name: "B", value: 30 }, { name: "C", value: 30 }]
+}];
+
+var dropShadowFilter = new am4core.DropShadowFilter();
+dropShadowFilter.blur = 4;
+pieSeries.filters.push(dropShadowFilter);
+
+var sliceTemplate = pieSeries.slices.template;
+sliceTemplate.fillOpacity = 1;
+sliceTemplate.strokeOpacity = 0;
+
+var activeState = sliceTemplate.states.getKey("active");
+activeState.properties.shiftRadius = 0; // no need to pull on click, as country circle under the pie won't make it good
+
+var sliceHoverState = sliceTemplate.states.getKey("hover");
+sliceHoverState.properties.shiftRadius = 0; // no need to pull on click, as country circle under the pie won't make it good
+
+// we don't need default pie chart animation, so change defaults
+var hiddenState = pieSeries.hiddenState;
+hiddenState.properties.startAngle = pieSeries.startAngle;
+hiddenState.properties.endAngle = pieSeries.endAngle;
+hiddenState.properties.opacity = 0;
+hiddenState.properties.visible = false;
+
+// series labels
+var labelTemplate = pieSeries.labels.template;
+labelTemplate.fill = am4core.color("#FFFFFF");
+labelTemplate.fontSize = 10;
+labelTemplate.background = new am4core.RoundedRectangle();
+labelTemplate.background.fillOpacity = 0.9;
+labelTemplate.padding(4, 9, 4, 9);
+labelTemplate.background.fill = am4core.color("#7678a0");
+
+// we need pie series to hide faster to avoid strange pause after country is clicked
+pieSeries.hiddenState.transitionDuration = 200;
+
+// country label
+var countryLabel = chart.chartContainer.createChild(am4core.Label);
+countryLabel.text = "Select a district";
+countryLabel.fill = am4core.color("#7678a0");
+countryLabel.fontSize = 40;
+
+countryLabel.hiddenState.properties.dy = 1000;
+countryLabel.defaultState.properties.dy = 0;
+countryLabel.valign = "middle";
+countryLabel.align = "right";
+countryLabel.paddingRight = 50;
+countryLabel.hide(0);
+countryLabel.show();
+
+// select polygon
+function selectPolygon(polygon) {
+  if (morphedPolygon != polygon) {
+    var animation = pieSeries.hide();
+    if (animation) {
+      animation.events.on("animationended", function() {
+        morphToCircle(polygon);
+      });
+    } else {
+      morphToCircle(polygon);
+    }
+  }
+}
+
+// fade out all countries except selected
+function fadeOut(exceptPolygon) {
+  for (var i = 0; i < polygonSeries.mapPolygons.length; i++) {
+    var polygon = polygonSeries.mapPolygons.getIndex(i);
+    if (polygon != exceptPolygon) {
+      polygon.defaultState.properties.fillOpacity = 0.5;
+      polygon.animate(
+        [
+          { property: "fillOpacity", to: 0.5 },
+          { property: "strokeOpacity", to: 1 }
+        ],
+        polygon.polygon.morpher.morphDuration
+      );
+    }
+  }
+}
+
+function zoomOut() {
+  if (morphedPolygon) {
+    pieSeries.hide();
+    morphBack();
+    fadeOut();
+    countryLabel.hide();
+    morphedPolygon = undefined;
+  }
+}
+
+function morphBack() {
+  if (morphedPolygon) {
+    morphedPolygon.polygon.morpher.morphBack();
+    var dsf = morphedPolygon.filters.getIndex(0);
+    dsf.animate(
+      { property: "saturation", to: 0.25 },
+      morphedPolygon.polygon.morpher.morphDuration
+    );
+  }
+}
+
+function morphToCircle(polygon) {
+  var animationDuration = polygon.polygon.morpher.morphDuration;
+  // if there is a country already morphed to circle, morph it back
+  morphBack();
+  // morph polygon to circle
+  polygon.toFront();
+  polygon.polygon.morpher.morphToSingle = true;
+  var morphAnimation = polygon.polygon.morpher.morphToCircle();
+
+  polygon.strokeOpacity = 0; // hide stroke for lines not to cross countries
+
+  polygon.defaultState.properties.fillOpacity = 1;
+  polygon.animate({ property: "fillOpacity", to: 1 }, animationDuration);
+
+  // animate desaturate filter
+  var filter = polygon.filters.getIndex(0);
+  filter.animate({ property: "saturation", to: 1 }, animationDuration);
+
+  // save currently morphed polygon
+  morphedPolygon = polygon;
+
+  // fade out all other
+  fadeOut(polygon);
+
+  // hide country label
+  countryLabel.hide();
+
+  if (morphAnimation) {
+    morphAnimation.events.on("animationended", function() {
+      zoomToCountry(polygon);
+    });
+  } else {
+    zoomToCountry(polygon);
+  }
+}
+
+function zoomToCountry(polygon) {
+  var zoomAnimation = chart.zoomToMapObject(polygon, 1.5, true);
+  if (zoomAnimation) {
+    zoomAnimation.events.on("animationended", function() {
+      showPieChart(polygon);
+    });
+  } else {
+    showPieChart(polygon);
+  }
+}
+
+function showPieChart(polygon) {
+  polygon.polygon.measure();
+  var radius =
+    polygon.polygon.measuredWidth /
+    2 *
+    polygon.globalScale /
+    chart.seriesContainer.scale;
+  pieChart.width = radius * 2;
+  pieChart.height = radius * 2;
+  pieChart.radius = radius;
+
+  // because defauls are 50, and it's not good with small countries
+  pieChart.chartContainer.minHeight = 1;
+  pieChart.chartContainer.minWidth = 1;
+
+  var centerPoint = am4core.utils.spritePointToSvg(
+    polygon.polygon.centerPoint,
+    polygon.polygon
+  );
+  centerPoint = am4core.utils.svgPointToSprite(
+    centerPoint,
+    chart.seriesContainer
+  );
+
+  pieChart.x = centerPoint.x - radius;
+  pieChart.y = centerPoint.y - radius;
+
+  var fill = polygon.fill;
+  var desaturated = fill.saturate(0.3);
+
+  for (var i = 0; i < pieSeries.dataItems.length; i++) {
+    var dataItem = pieSeries.dataItems.getIndex(i);
+    dataItem.value =
+    dataItem.slice.fill = am4core.color(
+      am4core.colors.interpolate(
+        fill.rgb,
+        am4core.color("rgba(17,93,144,0.86)").rgb,
+        0.2 * i
+      )
+    );
+
+    dataItem.label.background.fill = desaturated;
+    dataItem.tick.stroke = fill;
+  }
+
+  pieSeries.show();
+  pieChart.show();
+
+  countryLabel.text = "{name}";
+  countryLabel.dataItem = polygon.dataItem;
+  countryLabel.fill = desaturated;
+  countryLabel.show();
+}
+
+</script>
+</body>
+</html>

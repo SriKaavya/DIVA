@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Let's make a map with D3.js!</title>
+      <style>
+          body {
+  margin: 0px;
+  overflow: hidden;
+}
+    </style>
+    <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
+  </head>
+  <body>
+    <script>
+        var svg = d3.select(".chart")
+               .attr("width", "960")
+               .attr("height", "500")
+        const projection = d3.geoMercator();
+        const pathGenerator = d3.geoPath().projection(projection);
+
+        d3.json('https://raw.githubusercontent.com/SriKaavya/RandomTemp/master/PolygonDistChicagoGeoJSON.json')
+        .then(data => {
+        console.log(data);
+        const paths =svg.selectAll('path').data(data.features);
+
+        paths.enter().append('path')
+        .attr('d', d => pathGenerator(d));
+  });
+    </script>
+  </body>
+</html>

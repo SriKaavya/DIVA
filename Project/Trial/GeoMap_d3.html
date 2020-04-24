@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.name {
+    stroke: steelblue;
+    fill: #46b0cb;
+    height: 900;
+    width: 800;
+}
+div.tooltip {
+          position: absolute;
+          text-align: center;
+          width: 80px;
+          height: 14px;
+          padding: 2px;
+          font: 12px sans-serif;
+          background: #fff;
+          border: 0px;
+          pointer-events: none;
+      }
+
+</style>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+  //Load in GeoJSON data
+  d3.json("https://raw.githubusercontent.com/SriKaavya/RandomTemp/master/PolygonDistChicagoGeoJSON.json", function(json) {
+    console.log(json.features);
+    //Width and height
+    var width = 900;
+    var height = 350;
+    var center = d3.geo.centroid(json)
+    var scale = 1000;
+    var tooltip = d3.select('body').append('div')
+            .attr('class', 'hidden tooltip');
+    var projection = d3.geo.mercator().scale(scale).center(center);
+    var path = d3.geo.path()
+                    .projection(projection);
+    var bounds = path.bounds(json);
+    var offset = [width ,height/3 ];
+    projection = d3.geo.mercator().center(center)
+     .scale(scale * 49).translate(offset);
+    path = path.projection(projection);
+    var svg = d3.select(".chart")
+               .attr("width", width)
+               .attr("height", height+100)
+    var g = svg.append("g")
+
+    g.selectAll("path")
+      .data(json.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .attr("class", "name")
+      .on("mouseover", function(d) {
+            tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+            tooltip.html(d.properties.name)
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+          })
+  });
+</script>
+
+<body>
+  <svg class="chart"></svg>
+</body>

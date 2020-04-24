@@ -3,14 +3,13 @@
     <head>
        <title>Home</title>
     </head>
-    <body>
+    <body style="background-color: beige">
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
-        <div style="background-color: darksalmon; max-width:" class="font">
-            <br>
-            <br>
-            <header><h1 style="color: black; font-size: 30px"><center>CS526: Chicago Crime Data Analysis and Visualization</center></h1> </header>
-            <br><br><br><br>
-            <center><P style="font-size: 15px">Sri <strong>Kaavya</strong> Toodi, <strong>Rithvik</strong> Reddy Ananth, <strong>Srikar</strong> Reddy Nomula</P></center>  
+        <div style=" background-image: url(https://media.giphy.com/media/l4pTdvQhGedNxG4JG/giphy.gif); background-size: 100% 100%" class="font">
+            <br> <br>
+            <header><h1 style="color: ghostwhite; font-size: 30px"><center>CS526: Chicago Crime Data Analysis and Visualization</center></h1> </header>
+            <br><br><br> <br><br> <br><br><br><br> <br><br>
+            <center><P style="font-size: 15px; color: ghostwhite">Sri <strong>Kaavya</strong> Toodi, <strong>Rithvik</strong> Reddy Ananth, <strong>Srikar</strong> Reddy Nomula</P></center>
             <br><br><br>
         </div>
         <br><br>
@@ -21,72 +20,96 @@
         	<center>
                 <table style="font-size: 22px">
                     <tr>
-                        <td>&emsp;&emsp;&emsp;7,941,283</td>
-                        <td><center>22</center></td>
+                        <td>7,941,283</td>
                     </tr>
-                    <th>Total Incidents reported&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-                    <th><center>Columns</center></th>
-                    <tr>
-                    </tr>
+                    <th>Total Incidents reported</th>
+                     </table>
+                <br>
+
+                <table style="font-size: 22px">
                       <tr>
-                        <td>&emsp;&emsp;&emsp;2,249,419</td>
-                        <td><center>1,019,451</center></td>
+                        <td>2,249,419</td>
+                        <td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;1,019,451</td>
                     </tr>
-                    <th>Arrests&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-                    <th><center>Domestic Voilences</center></th>
-                    <tr>
-                    </tr>
+                    <th>Arrests</th>
+                    <th><center>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Domestic Voilences</center></th>
                 </table>
+                <style>
+                th,td{padding: 5px; text-align: center; font-style: italic;font-size: 12}
+
+            </style>
             </center>
 	</div>
-        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-       <center> <a href="#dashboard" class="myButton">Go to Dashboard</a>
-
-           </center>
-        <br> <br>
-
-
-        <nav>
-            <section id="dashboard">
-            <head>
-   <meta charset='utf-8'>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="styles.css">
-   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-   <script src="script.js"></script>
-   <title>CSS MenuMaker</title>
-</head>
-        </script>
-<footer>
-            &copy; CS526-Group 7</footer>
+        <br> <br> <br> <br>
+       <center> <a href="#dashboard" class="myButton">Go to Dashboard</a></center>
+        <br> <br><br> <br> <br> <br> <br> <br>
+    </body>
+    <nav>
+    <section id="dashboard">
+        <head>
+            <meta charset='utf-8'>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="styles.css">
+            <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+            <script src="script.js"></script>
+            <title>CSS MenuMaker</title>
+        </head>
+<footer>&copy; CS526-Group 7</footer>
 <br>  <br>  <br> 
-<body>
+<body style="background-color: beige">
 <div id='cssmenu'>
-<ul>
-    <li class='active'><a href='#dashboard'>Dashboard</a></li>
-   <li><a href="{{ url_for('Stats') }}">Statistics</a></li>
-   <li><a href="{{ url_for('Judiciary') }}">Judiciary</a></li>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<ul>
+    <li class='active'><a href='#dashboard'>Dashboard &emsp;<i class='fas fa-tachometer-alt'></i></a></li>
+   <li><a href="{{ url_for('Stats') }}">Statistics &emsp;<i class='fas fa-chart-bar'></i></a></li>
+   <li><a href="{{ url_for('Judiciary') }}">Judiciary &emsp;<i class='fas fa-balance-scale'></i></a></li>
+    <li><a href="{{ url_for('Judiciary') }}">Insights &emsp;<i class='fas fa-head-side-virus'></i></a></li>
 </ul>
 </div>
-
 </body>
-                </section>
-
-        </nav>
+    </section>
+    </nav>
         <div>
             <title>Dashboard</title>
             <center>
-	<div id="chart1"></div>
+    <body onload="Word_cloud()" style="background-color: beige">
 	<!-- Resources -->
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
         <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
-	<script type="text/javascript" src="{{url_for('static', filename='js/wordcloud1.js')}}"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
-<style>
+	<script>
+        function Word_cloud(){
+// Themes begin
+am4core.useTheme(am4themes_animated);
+//console.log(data);
+am4core.ready(function(){
+var chart = am4core.create("chart1", am4plugins_wordCloud.WordCloud);
+// Set up data source
+chart.dataSource.url = "http://127.0.0.1:5000/WordCloud";
+var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+chart.fontFamily = "Courier New";
+series.data = data;
+series.colors = new am4core.ColorSet();
+series.minCount = 100;
+series.minWordLength = 5;
+series.dataFields.word = "tag";
+series.dataFields.value = "counts";
+series.heatRules.push({
+                    "target": series.labels.template,
+                    "property": "fill",
+                    "min": am4core.color("#0d0dcd"),
+                    "max": am4core.color("#d036d0"),
+                    "dataField": "value"
+                });
+series.labels.template.tooltipText = "{word}:\n[bold]{value}[/]";
+});// end am4core.ready()
+
+}
+    </script>
+                <style>
 #chart1 {
   width: 100%;
   height: 500px;
@@ -94,14 +117,17 @@
 
 </style>
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+        <div id="myFrame"></div>
+            <iframe id="myFrame" title="City Map" width="800" height="600" src="/static/html/map3.html">City's Map</iframe>
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-</body>               
-            <iframe id="myFrame" title="City Map" width="800" height="600"
-                src="/static/html/map3.html">City's Map</iframe> 
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              
-<!-- Code for line chart start -->
-<style>
+    <div id="chartdiv"></div>
+    <div id="chart1"></div>
+    <!-- Code for line chart start -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
+                <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+                <script src="script.js"></script>
+                <style>
+
 body {
   font: 10px sans-serif;
 }
@@ -159,13 +185,12 @@ body {
 }
 
 </style>
-<body>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
 
-var margin = {top: 20, right: 200, bottom: 100, left: 50},
-    margin2 = { top: 430, right: 10, bottom: 20, left: 40 },
-    width = 960 - margin.left - margin.right,
+var margin = {top: 20, right: 200, bottom: 100, left: 100},
+    margin2 = { top: 430, right: 0, bottom: 20, left: 40 },
+    width = 1460 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom,
     height2 = 500 - margin2.top - margin2.bottom;
 
@@ -342,7 +367,7 @@ d3.csv("/static/data/GroupedCount.csv", function(error, data1) {
   issue.append("rect")
       .attr("width", 10)
       .attr("height", 10)                                    
-      .attr("x", width + (margin.right/3) - 15) 
+      .attr("x", width + (margin.right/3) - 15)
       .attr("y", function (d, i) { return (legendSpace)+i*(legendSpace) - 8; })  // spacing
       .attr("fill",function(d) {
         return d.visible ? color(d.name) : "#F1F1F2"; // If array key "visible" = true then color rect, if not then make it grey 
@@ -395,7 +420,7 @@ d3.csv("/static/data/GroupedCount.csv", function(error, data1) {
       })
       
   issue.append("text")
-      .attr("x", width + (margin.right/3)) 
+      .attr("x", width + (margin.right/2))
       .attr("y", function (d, i) { return (legendSpace)+i*(legendSpace); })  // (return (11.25/2 =) 5.625) + i * (5.625) 
       .text(function(d) { return d.name; }); 
 
@@ -429,7 +454,7 @@ d3.csv("/static/data/GroupedCount.csv", function(error, data1) {
 
   focus.append("text") // http://stackoverflow.com/questions/22064083/d3-js-multi-series-chart-with-y-value-tracking
         .attr("class", "tooltip")
-        .attr("x", width + 20) // position tooltips  
+        .attr("x", width + 25) // position tooltips
         .attr("y", function (d, i) { return (legendSpace)+i*(legendSpace); }); // (return (11.25/2 =) 5.625) + i * (5.625) // position tooltips       
 
   // Add mouseover events for hover line.
@@ -521,18 +546,9 @@ d3.csv("/static/data/GroupedCount.csv", function(error, data1) {
 </body>
 
 <!-- End -->
-
-
         </center>
             <br> 
         </div>
-        
-        
-        </div>
-
-        <footer>
-            &copy; CS526-Group 7</footer>
-    </body>
-
+        <footer>&copy; CS526-Group 7</footer>
 </html>
 

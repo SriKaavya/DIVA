@@ -136,7 +136,7 @@ console.log(list_main);
         function nextYear() {
             year++
 
-            if (year > 2016) {
+            if (year > 2020) {
                 year = 2001;
             }
 

@@ -5,12 +5,17 @@ alert('page loaded');
 var data=[];
 for( var i =0; i< fdata.length; i++)
 { 
-
-	data[i].Crime = fdata[i].Crime;
-	data[i].Count = fdata[i].Count;
-	data[i].subData = [];
-	data[i].subData = fdata[i].subData;
- data.push({data[i]});
+    var list_main = {};
+	list_main.Crime = fdata[i].Crime;
+	list_main.Count = fdata[i].Count;
+	list_main.subData = [];
+	var list_temp = [];
+	for( var j =0; i< fdata[i].subData.length; j++)
+	{
+		list_temp[j] = fdata[i].subData[j];
+	}
+	list_main.subData.push({list_temp});
+	data.push({list_main});
 }
 
 am4core.ready(function() {
@@ -138,8 +143,4 @@ chart.events.on("datavalidated", function() {
 
 }
 
-fetch("http://127.0.0.1:5000/pie-of-pie_charts")
-    .then(res => res.json())
-    .then((out) => {
-		chart_data(out); 
-    }).catch(err => console.error(err));
+
